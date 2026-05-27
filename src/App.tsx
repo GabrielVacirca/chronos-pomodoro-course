@@ -5,10 +5,12 @@
 import "./styles/theme.css";
 import "./styles/global.css";
 
+import { Heading } from "./components/Heading";
+
 export function App() {
   return (
     <>
-      <h1>Olá Mundo!</h1>
+      <Heading />
       <p>Esse é o meu primeiro componente React</p>
     </>
   );
