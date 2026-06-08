@@ -1,13 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
 body {
-  background-color: var(--color-background);
-}
-
-h1 {
-  color: var(--color-primary);
-  font-family: Arial, sans-serif;
-}
-
-p {
-  color: var(--color-text);
-  font-family: Arial, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  font-size: 1.6rem; /* 16px */
+  background: var(--gray-900);
+  color: var(--text-default);
 }

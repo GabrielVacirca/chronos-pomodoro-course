@@ -1,7 +1,6 @@
 .heading {
-    background: orange;
-}
-
-.cyan {
-    background: cyan;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4 rem;
 }
