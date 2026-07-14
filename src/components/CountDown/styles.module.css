@@ -1,0 +1,10 @@
+.container {
+  font-size: clamp(
+    8rem,
+    30vw,
+    16rem
+  ); /* Adjust the font size based on the viewport width */
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.3;
+}
