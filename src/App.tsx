@@ -7,6 +7,7 @@ import "./styles/global.css";
 import { Heading } from "./components/Heading";
 import { Container } from "./components/Container";
 import { Logo } from "./components/Logo";
+import { Menu } from "./components/Menu";
 
 export function App() {
   return (
@@ -17,7 +18,7 @@ export function App() {
         </Heading>
       </Container>
       <Container>
-        <Heading>Logo</Heading>
+        <Menu />
       </Container>
     </>
   );
