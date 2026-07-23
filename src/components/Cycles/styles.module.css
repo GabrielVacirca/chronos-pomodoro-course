@@ -9,23 +9,21 @@
 .cycleDots {
   display: flex;
   gap: 0.8rem;
-
 }
 
 .cycleDot {
-  
-  width: 2rem ;
+  width: 2rem;
   height: 2rem;
-  background-color: var(--primary-color);
+  background-color: var(--primary);
   border-radius: 50%;
 }
 
 .workTime {
-  background-color: var(--warning-color);
+  background-color: var(--warning);
 }
 
 .shortBreakTime {
-  background-color: var(--primary-color);
+  background-color: var(--primary);
 }
 
 .longBreakTime {

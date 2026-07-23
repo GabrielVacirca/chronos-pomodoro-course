@@ -29,7 +29,12 @@ export function App() {
       <Container>
         <form className="form">
           <div className="formRow">
-            <DefaultInput labelText="task id" id="meuInput" type="text" placeholder="Digite algo"/>
+            <DefaultInput
+              labelText="task"
+              id="meuInput"
+              type="text"
+              placeholder="Digite algo"
+            />
           </div>
 
           <div className="formRow">
@@ -37,7 +42,7 @@ export function App() {
           </div>
 
           <div className="formRow">
-           <Cycles />
+            <Cycles />
           </div>
 
           <div className="formRow">
