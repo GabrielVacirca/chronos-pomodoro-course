@@ -3,10 +3,9 @@ import { Container } from "../Container";
 import { Cycles } from "../Cycles";
 import { DefaultInput } from "../DefaultInput";
 import { DefaultButton } from "../DefaultButton";
-import { HomeProps } from "../../Pages/Home"
 
 
-export function MainForm({state}: HomeProps) {
+export function MainForm() {
   return (
     <Container>
       <form className="form">
@@ -20,7 +19,7 @@ export function MainForm({state}: HomeProps) {
         </div>
 
         <div className="formRow">
-          <label htmlFor="meuInput">Próximo intervalo é de {state.config.workTime}min</label>
+          <label htmlFor="meuInput">Próximo intervalo é de </label>
         </div>
 
         <div className="formRow">
