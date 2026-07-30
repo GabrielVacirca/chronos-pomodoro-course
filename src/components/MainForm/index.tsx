@@ -4,9 +4,14 @@ import { DefaultInput } from "../DefaultInput";
 import { DefaultButton } from "../DefaultButton";
 
 export function MainForm() {
-
-  return(
-    <form className="form">
+  function handleCreateNewTask(
+    event: React.SubmitEventHandler<HTMLFormElement>,
+  ) {
+    console.log("Enviado!");
+    event.preventDefault();
+  }
+  return (
+    <form onSubmit={handleCreateNewTask} className="form">
       <div className="formRow">
         <DefaultInput
           labelText="task"
@@ -29,6 +34,4 @@ export function MainForm() {
       </div>
     </form>
   );
- 
-  
 }
