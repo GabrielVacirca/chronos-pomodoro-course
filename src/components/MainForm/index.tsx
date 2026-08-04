@@ -5,10 +5,16 @@ import { DefaultButton } from "../DefaultButton";
 import { useRef, useState } from "react";
 import { useTaskContext } from "../../context/TaskContext/UseTaskContext";
 import type { TaskModel } from "../../models/TaskModel";
+import { getNextCycle } from "../../utils/getNextCycle";
+import { getNextCycleType } from "../../utils/getNextCycleType";
 
 export function MainForm() {
-  const { setState } = useTaskContext();
+  const { state, setState } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
+
+  // ciclos
+  const nextCycle = getNextCycle(state.currentCycle); // Obtém o próximo ciclo com base no ciclo atual
+  const nextCycleType = getNextCycleType(nextCycle); // Obtém o tipo do próximo ciclo com base no próximo ciclo
 
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -29,7 +35,7 @@ export function MainForm() {
       completeDate: null,
       interruptDate: null,
       duration: 1,
-      type: "workTime",
+      type: nextCycleType,
     };
 
     const secondsRemaining = newTask.duration * 60; // Calcula o tempo restante em segundos com base na duração da tarefa
@@ -38,7 +44,7 @@ export function MainForm() {
       ...prevState,
       config: { ...prevState.config },
       activeTask: newTask,
-      currentCycle: 1,
+      currentCycle: nextCycle,
       secondsRemaining,
       formattedSecondsRemaining: "00:00",
       tasks: [...prevState.tasks, newTask],
