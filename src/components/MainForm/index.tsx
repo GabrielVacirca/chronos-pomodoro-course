@@ -52,6 +52,15 @@ export function MainForm() {
     }));
   }
 
+  function handleInterruptTask() {
+    setState((prevState) => ({
+      ...prevState,
+      activeTask: null,
+      secondsRemaining: 0,
+      formattedSecondsRemaining: '00:00',
+    }))
+  }
+
   return (
     <form onSubmit={handleCreateNewTask} className="form">
       <div className="formRow">
@@ -82,6 +91,7 @@ export function MainForm() {
             type="submit"
             color="green"
             icon={<PlayCircleIcon />}
+            key='botao_submit'
           />
         ) : (
           <DefaultButton
@@ -90,6 +100,9 @@ export function MainForm() {
             type="button"
             color="red"
             icon={<StopCircleIcon />}
+            onClick={handleInterruptTask}
+            key='botao_interromper'
+
           />
         )}
       </div>
