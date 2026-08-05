@@ -68,9 +68,11 @@ export function MainForm() {
         <label htmlFor="meuInput">Próximo intervalo é de </label>
       </div>
 
-      <div className="formRow">
-        <Cycles />
-      </div>
+      {state.currentCycle > 0 && (
+        <div className="formRow">
+          <Cycles />
+        </div>
+      )}
 
       <div className="formRow">
         <DefaultButton icon={<PlayCircleIcon />} color="green" />
