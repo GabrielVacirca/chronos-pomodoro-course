@@ -1,4 +1,4 @@
-import { PlayCircleIcon } from "lucide-react";
+import { PlayCircleIcon, StopCircleIcon } from "lucide-react";
 import { Cycles } from "../Cycles";
 import { DefaultInput } from "../DefaultInput";
 import { DefaultButton } from "../DefaultButton";
@@ -39,7 +39,7 @@ export function MainForm() {
       type: nextCycleType,
     };
 
-    export const secondsRemaining = newTask.duration * 60; // Calcula o tempo restante em segundos com base na duração da tarefa
+    const secondsRemaining = newTask.duration * 60; // Calcula o tempo restante em segundos com base na duração da tarefa
 
     setState((prevState) => ({
       ...prevState,
@@ -75,7 +75,23 @@ export function MainForm() {
       )}
 
       <div className="formRow">
-        <DefaultButton icon={<PlayCircleIcon />} color="green" />
+        {!state.activeTask ? (
+          <DefaultButton
+            aria-label="Iniciar tarefa"
+            title="Iniciar tarefa"
+            type="submit"
+            color="green"
+            icon={<PlayCircleIcon />}
+          />
+        ) : (
+          <DefaultButton
+            aria-label="Pausar tarefa"
+            title="Pausar tarefa"
+            type="button"
+            color="red"
+            icon={<StopCircleIcon />}
+          />
+        )}
       </div>
     </form>
   );
