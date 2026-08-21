@@ -57,8 +57,17 @@ export function MainForm() {
       ...prevState,
       activeTask: null,
       secondsRemaining: 0,
-      formattedSecondsRemaining: '00:00',
-    }))
+      formattedSecondsRemaining: "00:00",
+      tasks: prevState.tasks.map((task) => {
+        if (prevState.activeTask && prevState.activeTask.id === task.id) {
+          return {
+            ...task,
+            interruptDate: Date.now(),
+          };
+        }
+        return task;
+      }),
+    }));
   }
 
   return (
@@ -91,7 +100,7 @@ export function MainForm() {
             type="submit"
             color="green"
             icon={<PlayCircleIcon />}
-            key='botao_submit'
+            key="botao_submit"
           />
         ) : (
           <DefaultButton
@@ -101,8 +110,7 @@ export function MainForm() {
             color="red"
             icon={<StopCircleIcon />}
             onClick={handleInterruptTask}
-            key='botao_interromper'
-
+            key="botao_interromper"
           />
         )}
       </div>
