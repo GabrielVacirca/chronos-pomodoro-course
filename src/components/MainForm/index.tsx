@@ -2,12 +2,12 @@ import { PlayCircleIcon, StopCircleIcon } from "lucide-react";
 import { Cycles } from "../Cycles";
 import { DefaultInput } from "../DefaultInput";
 import { DefaultButton } from "../DefaultButton";
-import { useRef} from "react";
+import { useRef } from "react";
 import { useTaskContext } from "../../context/TaskContext/UseTaskContext";
 import type { TaskModel } from "../../models/TaskModel";
 import { getNextCycle } from "../../utils/getNextCycle";
 import { getNextCycleType } from "../../utils/getNextCycleType";
-import { TaskActionTypes } from '../../context/TaskContext/taskActions';
+import { TaskActionTypes } from "../../context/TaskContext/taskActions";
 import { Tips } from "../Tips";
 
 export function MainForm() {
@@ -17,9 +17,6 @@ export function MainForm() {
   const nextCycle = getNextCycle(state.currentCycle); // Obtém o próximo ciclo com base no ciclo atual
   const nextCycleType = getNextCycleType(nextCycle); // Obtém o tipo do próximo ciclo com base no próximo ciclo
   const durationCycle = state.config[nextCycleType]; // Obtém a duração do próximo ciclo com base no tipo do próximo ciclo
-
-
-
 
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -44,20 +41,6 @@ export function MainForm() {
     };
 
     dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
-
-    const worker = new Worker(new URL("../../workers/timeWorker.js", import.meta.url)); // Cria uma nova instância do Web Worker
-
-    worker.postMessage('INICIO'); // Envia uma mensagem para o Worker
-    worker.postMessage('FAVOR');
-    worker.postMessage('PAUSAR');
-    worker.postMessage('BLABLA');
-
-
-    worker.onmessage = function (event) {
-      console.log('Mensagem recebida do Worker:', event.data);
-    }
-    
-    
   }
 
   function handleInterruptTask() {
