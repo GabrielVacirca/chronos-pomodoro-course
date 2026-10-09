@@ -3,6 +3,7 @@ import { initialTaskState } from "./initialTaskState";
 import { TaskContext } from "./TaskContext";
 import { taskReducer } from "./taskReducer";
 import { TimeWorkerManager } from "../../workers/timeWorkerManager";
+import { TaskActionTypes } from "./taskActions";
 
 type TaskContextProviderProps = {
   children: React.ReactNode;
@@ -18,19 +19,26 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
     console.log(countDownSeconds);
 
     if (countDownSeconds <= 0) {
-      console.log('Worker COMPLETED')
+      dispatch({
+        type: TaskActionTypes.COMPLETE_TASK,
+      });
       worker.terminate();
+    } else {
+      dispatch({
+        type: TaskActionTypes.COUNT_DOWN,
+        payload: { secondsRemaining: countDownSeconds },
+      });
     }
-
   });
 
   useEffect(() => {
-   if(!state.activeTask) {
-    console.log("Terminando o worker pois não há tarefa ativa");
-    worker.terminate();
-   }
+    console.log("Enviando estado para o worker", state);
+    if (!state.activeTask) {
+      console.log("Terminando o worker pois não há tarefa ativa");
+      worker.terminate();
+    }
 
-   worker.postMessage(state)
+    worker.postMessage(state);
   }, [worker, state]);
 
   return (
