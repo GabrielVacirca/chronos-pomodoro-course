@@ -9,6 +9,7 @@ import { getNextCycle } from "../../utils/getNextCycle";
 import { getNextCycleType } from "../../utils/getNextCycleType";
 import { TaskActionTypes } from "../../context/TaskContext/taskActions";
 import { Tips } from "../Tips";
+import { showMessage } from "../../adapters/showMessage";
 
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
@@ -20,13 +21,14 @@ export function MainForm() {
 
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    showMessage.dismiss(); // Limpa mensagens anteriores
 
     if (taskNameInput.current === null) return; // Verifica se a referência do input é nula
 
     const taskName = taskNameInput.current.value.trim(); // Obtém o valor do input
 
     if (!taskName) {
-      alert("Digite o nome da tarefa antes de enviar."); // Alerta se o campo estiver vazio
+      showMessage.warn("Digite o nome da tarefa antes de enviar."); // Alerta se o campo estiver vazio
       return;
     }
 
@@ -41,10 +43,14 @@ export function MainForm() {
     };
 
     dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
+
+    showMessage.sucess(`Tarefa "${taskName}" iniciada com sucesso!`); // Mensagem de sucesso
   }
 
   function handleInterruptTask() {
     dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
+    showMessage.dismiss(); // Limpa mensagens anteriores
+    showMessage.error("Tarefa interrompida."); // Mensagem de interrupção
   }
 
   return (
