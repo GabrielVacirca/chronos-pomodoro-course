@@ -1,9 +1,10 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import { initialTaskState } from "./initialTaskState";
 import { TaskContext } from "./TaskContext";
 import { taskReducer } from "./taskReducer";
 import { TimeWorkerManager } from "../../workers/timeWorkerManager";
 import { TaskActionTypes } from "./taskActions";
+import { loadBeep } from "../../utils/loadBeep";
 
 type TaskContextProviderProps = {
   children: React.ReactNode;
@@ -11,14 +12,21 @@ type TaskContextProviderProps = {
 
 export function TaskContextProvider({ children }: TaskContextProviderProps) {
   const [state, dispatch] = useReducer(taskReducer, initialTaskState);
+  const playBeepRef = useRef<ReturnType<typeof loadBeep> | null>(null);
 
   const worker = TimeWorkerManager.getInstance();
 
+  // eslint-disable-next-line react-hooks/refs
   worker.onmessage((event: MessageEvent) => {
     const countDownSeconds = event.data;
     console.log(countDownSeconds);
 
     if (countDownSeconds <= 0) {
+      if (playBeepRef.current) {
+        playBeepRef.current();
+        playBeepRef.current = null; // Reseta a referência para que o som não seja reproduzido novamente
+      }
+
       dispatch({
         type: TaskActionTypes.COMPLETE_TASK,
       });
@@ -32,14 +40,20 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
   });
 
   useEffect(() => {
-    console.log("Enviando estado para o worker", state);
     if (!state.activeTask) {
-      console.log("Terminando o worker pois não há tarefa ativa");
       worker.terminate();
     }
 
     worker.postMessage(state);
   }, [worker, state]);
+
+  useEffect(() => {
+    if (state.activeTask && playBeepRef.current === null) {
+      playBeepRef.current = loadBeep();
+    } else {
+      playBeepRef.current = null; // Reseta a referência para que o som não seja reproduzido novamente
+    }
+  }, [state.activeTask]);
 
   return (
     <TaskContext.Provider value={{ state, dispatch }}>
