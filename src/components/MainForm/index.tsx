@@ -14,6 +14,7 @@ import { showMessage } from "../../adapters/showMessage";
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
+  const lastTaskName = state.tasks[state.tasks.length - 1]?.name || ''; // Obtém o nome da última tarefa, se existir
   // ciclos
   const nextCycle = getNextCycle(state.currentCycle); // Obtém o próximo ciclo com base no ciclo atual
   const nextCycleType = getNextCycleType(nextCycle); // Obtém o tipo do próximo ciclo com base no próximo ciclo
@@ -62,6 +63,7 @@ export function MainForm() {
           type="text"
           placeholder="Digite algo"
           ref={taskNameInput}
+          defaultValue={lastTaskName} // Define o valor padrão como o nome da última tarefa
         />
       </div>
 
