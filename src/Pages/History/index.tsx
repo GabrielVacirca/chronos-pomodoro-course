@@ -3,8 +3,9 @@ import { Container } from "../../components/Container";
 import { DefaultButton } from "../../components/DefaultButton";
 import { Heading } from "../../components/Heading";
 import { MainTemplate } from "../../Templates/MainTemplate";
-import styles from "./styles.module.css";
+import styles from "./style.module.css";
 import { useTaskContext } from "../../context/TaskContext/UseTaskContext";
+import { formatDate } from "../../utils/formatDate";
 
 export function History() {
   const {state} = useTaskContext();
@@ -31,6 +32,7 @@ export function History() {
               <tr>
                 <th>Tarefas</th>
                 <th>Duração</th>
+                <th>Data</th>
                 <th>Status</th>
                 <th>Tipo</th>
               </tr>
@@ -42,7 +44,7 @@ export function History() {
                   <tr key={task.id}>
                     <td>{task.name}</td>
                     <td>{task.duration}</td>
-                    <td>{new Date(task.startDate).toISOString()}</td>
+                    <td>{formatDate(task.startDate)}</td>
                     <td>{task.interruptDate}</td>
                     <td>{task.type}</td>
                   </tr>
