@@ -8,9 +8,10 @@ import { Heading } from "../../components/Heading";
 import { useRef } from "react";
 import { useTaskContext } from "../../context/TaskContext/UseTaskContext";
 import { showMessage } from "../../adapters/showMessage";
+import { TaskActionTypes } from "../../context/TaskContext/taskActions";
 
 export function Settings() {
-  const { state } = useTaskContext();
+  const { state, dispatch } = useTaskContext();
   const workTimeInputRef = useRef<HTMLInputElement>(null);
   const shortBreakTimeInputRef = useRef<HTMLInputElement>(null);
   const longBreakTimeInputRef = useRef<HTMLInputElement>(null);
@@ -27,7 +28,6 @@ export function Settings() {
 
     if (isNaN(workTime) || isNaN(shortBreakTime) || isNaN(longBreakTime)) {
       formErrors.push("Digite apenas números para todos os campos");
-      return;
     }
 
     if (workTime < 1 || workTime > 99) {
@@ -44,7 +44,17 @@ export function Settings() {
       formErrors.forEach((error) => {
         showMessage.error(error);
       });
+      return;
     }
+    dispatch({
+      type: TaskActionTypes.CHANGE_SETTINGS,
+      payload: {
+        workTime,
+        shortBreakTime,
+        longBreakTime,
+      },
+    });
+    showMessage.sucess('Configurações salvas!')
   }
 
   return (
@@ -67,7 +77,7 @@ export function Settings() {
               type="number"
             ></DefaultInput>
           </div>
-          <div>
+          <div className="formRow">
             <DefaultInput
               id="shortBreakTime"
               labelText="Descanso curto"
@@ -76,14 +86,13 @@ export function Settings() {
               type="number"
             ></DefaultInput>
           </div>
-          <div>
+          <div className="formRow">
             <DefaultInput
               id="longBreakTime"
               labelText="Descanso longo"
               ref={longBreakTimeInputRef}
               defaultValue={state.config.longBreakTime}
               type="number"
-              
             ></DefaultInput>
           </div>
           <div>
