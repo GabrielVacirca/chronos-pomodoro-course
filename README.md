@@ -90,6 +90,23 @@ src/
 
 ---
 
+## 🪝 Hooks Utilizados no Projeto
+
+### Hooks Nativos do React
+- **`useState`**: Gerenciamento de estado local (ex.: alternância do tema `dark`/`light` em `Menu`, opções de ordenação e confirmação de exclusão em `History`).
+- **`useEffect`**: Execução de efeitos colaterais e controle de ciclo de vida (persistência do estado e tema no `localStorage`, atualização de `document.title` no cronômetro e nas páginas, aplicação do atributo `data-theme`, carregamento de áudio, rolagem ao topo na navegação, sincronização da tabela e limpeza com `showMessage.dismiss()` ao desmontar).
+- **`useRef`**: Referência direta a inputs HTML sem re-renderização por tecla (`MainForm` e `Settings`) e armazenamento de referência mutável para o áudio de notificação (`playBeepRef` em `TaskContextProvider`).
+- **`useContext`**: Leitura do contexto global `TaskContext` dentro do hook customizado `useTaskContext`.
+- **`useReducer`**: Gerenciamento do estado global complexo em `TaskContextProvider` por meio de ações tipadas (`taskActions.ts`) e reducer puro (`taskReducer.ts`), com leitura inicial do `localStorage`.
+
+### Hooks de Bibliotecas (`react-router`)
+- **`useLocation`**: Captura do `pathname` atual no componente `ScrollToTop` (`MainRouter`) para rolar suavemente ao topo da página ao mudar de rota.
+
+### Custom Hooks
+- **`useTaskContext`**: Hook customizado (`src/context/TaskContext/UseTaskContext.tsx`) que encapsula `useContext(TaskContext)` para expor `{ state, dispatch }` de forma limpa aos componentes e páginas.
+
+---
+
 ## 🚀 Como Executar o Projeto
 
 ```bash
