@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { History } from "../../Pages/History";
 import { Settings } from "../../Pages/Settings";
 
+
 function ScrollToTop() {
   const { pathname } = useLocation();
 
